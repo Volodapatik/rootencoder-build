@@ -1,0 +1,42 @@
+plugins {
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.jetbrains.kotlin)
+}
+
+android {
+  namespace = "com.pedro.streamer"
+  compileSdk = 36
+
+  defaultConfig {
+    applicationId = "com.pedro.streamer"
+    minSdk = 16
+    targetSdk = 36
+    versionCode = project.version.toString().replace(".", "").toInt()
+    versionName = project.version.toString()
+    multiDexEnabled = true
+  }
+  buildTypes {
+    release {
+      isMinifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+    }
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+  kotlin {
+    jvmToolchain(17)
+  }
+  buildFeatures {
+    buildConfig = true
+  }
+}
+
+dependencies {
+  implementation(project(":library"))
+  implementation(project(":extra-sources"))
+  implementation(libs.androidx.constraintlayout)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.androidx.multidex)
+}
